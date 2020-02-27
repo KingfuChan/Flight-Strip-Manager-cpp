@@ -13,13 +13,13 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 #include <lineedit.h>
+#include <listwidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -38,9 +38,9 @@ public:
     QWidget *centralwidget;
     QPushButton *btn_add;
     QPushButton *btn_reset;
-    QListWidget *list_pend;
-    QListWidget *list_push;
-    QListWidget *list_dept;
+    CustomListWidget *list_pend;
+    CustomListWidget *list_push;
+    CustomListWidget *list_dept;
     CustomLineEdit *lineEdit;
     QMenuBar *menuBar;
     QMenu *menuSettings;
@@ -90,7 +90,7 @@ public:
         btn_reset->setObjectName(QString::fromUtf8("btn_reset"));
         btn_reset->setGeometry(QRect(250, 10, 111, 31));
         btn_reset->setFont(font1);
-        list_pend = new QListWidget(centralwidget);
+        list_pend = new CustomListWidget(centralwidget);
         list_pend->setObjectName(QString::fromUtf8("list_pend"));
         list_pend->setGeometry(QRect(10, 50, 111, 421));
         list_pend->setFont(font);
@@ -99,7 +99,7 @@ public:
         list_pend->setDragDropOverwriteMode(false);
         list_pend->setDragDropMode(QAbstractItemView::DragDrop);
         list_pend->setDefaultDropAction(Qt::MoveAction);
-        list_push = new QListWidget(centralwidget);
+        list_push = new CustomListWidget(centralwidget);
         list_push->setObjectName(QString::fromUtf8("list_push"));
         list_push->setGeometry(QRect(130, 50, 111, 421));
         list_push->setFont(font);
@@ -108,7 +108,7 @@ public:
         list_push->setDragDropOverwriteMode(false);
         list_push->setDragDropMode(QAbstractItemView::DragDrop);
         list_push->setDefaultDropAction(Qt::MoveAction);
-        list_dept = new QListWidget(centralwidget);
+        list_dept = new CustomListWidget(centralwidget);
         list_dept->setObjectName(QString::fromUtf8("list_dept"));
         list_dept->setGeometry(QRect(250, 50, 111, 421));
         list_dept->setFont(font);

@@ -15,14 +15,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QBrush brush_b_def, brush_f_def;
-    QBrush brush_b_clr,brush_f_clr;
-    QBrush brush_b_tit,brush_f_tit;
+    //QBrush brush_b_def, brush_f_def;
+    //QBrush brush_b_clr,brush_f_clr;
+    //QBrush brush_b_tit,brush_f_tit;
 
 public slots:
     void clickMenu(QAction*);
     void addFlight();
-    void addFlight(QString);
+    void addFlight(QListWidgetItem*);
     void resetLists();
     void setStatusClr(QListWidgetItem*);
     void setStatusDep(QListWidgetItem*);

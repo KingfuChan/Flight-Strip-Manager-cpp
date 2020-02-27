@@ -59,7 +59,7 @@
      <string>RESET</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="list_pend">
+   <widget class="CustomListWidget" name="list_pend">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -90,7 +90,7 @@
      <enum>Qt::MoveAction</enum>
     </property>
    </widget>
-   <widget class="QListWidget" name="list_push">
+   <widget class="CustomListWidget" name="list_push">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -121,7 +121,7 @@
      <enum>Qt::MoveAction</enum>
     </property>
    </widget>
-   <widget class="QListWidget" name="list_dept">
+   <widget class="CustomListWidget" name="list_dept">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -286,6 +286,11 @@
    <class>CustomLineEdit</class>
    <extends>QLineEdit</extends>
    <header location="global">lineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">listwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

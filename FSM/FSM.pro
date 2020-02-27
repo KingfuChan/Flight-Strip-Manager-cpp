@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     lineedit.cpp \
+    listwidget.cpp \
     main.cpp \
     mainwindow.cpp
 

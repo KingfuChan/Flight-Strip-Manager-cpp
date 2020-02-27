@@ -37,14 +37,14 @@ QT_MOC_LITERAL(1, 11, 9), // "clickMenu"
 QT_MOC_LITERAL(2, 21, 0), // ""
 QT_MOC_LITERAL(3, 22, 8), // "QAction*"
 QT_MOC_LITERAL(4, 31, 9), // "addFlight"
-QT_MOC_LITERAL(5, 41, 10), // "resetLists"
-QT_MOC_LITERAL(6, 52, 12), // "setStatusClr"
-QT_MOC_LITERAL(7, 65, 16), // "QListWidgetItem*"
+QT_MOC_LITERAL(5, 41, 16), // "QListWidgetItem*"
+QT_MOC_LITERAL(6, 58, 10), // "resetLists"
+QT_MOC_LITERAL(7, 69, 12), // "setStatusClr"
 QT_MOC_LITERAL(8, 82, 12) // "setStatusDep"
 
     },
     "MainWindow\0clickMenu\0\0QAction*\0addFlight\0"
-    "resetLists\0setStatusClr\0QListWidgetItem*\0"
+    "QListWidgetItem*\0resetLists\0setStatusClr\0"
     "setStatusDep"
 };
 #undef QT_MOC_LITERAL
@@ -66,17 +66,17 @@ static const uint qt_meta_data_MainWindow[] = {
        1,    1,   44,    2, 0x0a /* Public */,
        4,    0,   47,    2, 0x0a /* Public */,
        4,    1,   48,    2, 0x0a /* Public */,
-       5,    0,   51,    2, 0x0a /* Public */,
-       6,    1,   52,    2, 0x0a /* Public */,
+       6,    0,   51,    2, 0x0a /* Public */,
+       7,    1,   52,    2, 0x0a /* Public */,
        8,    1,   55,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, 0x80000000 | 5,    2,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 7,    2,
-    QMetaType::Void, 0x80000000 | 7,    2,
+    QMetaType::Void, 0x80000000 | 5,    2,
+    QMetaType::Void, 0x80000000 | 5,    2,
 
        0        // eod
 };
@@ -89,7 +89,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->clickMenu((*reinterpret_cast< QAction*(*)>(_a[1]))); break;
         case 1: _t->addFlight(); break;
-        case 2: _t->addFlight((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->addFlight((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 3: _t->resetLists(); break;
         case 4: _t->setStatusClr((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 5: _t->setStatusDep((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
