@@ -61,10 +61,8 @@ public:
         actionStay_on_top->setCheckable(true);
         actionStatistics = new QAction(MainWindow);
         actionStatistics->setObjectName(QString::fromUtf8("actionStatistics"));
-        actionStatistics->setEnabled(false);
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
-        actionAbout->setEnabled(false);
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
         actionOpac_Incr = new QAction(MainWindow);
@@ -94,7 +92,9 @@ public:
         list_pend->setObjectName(QString::fromUtf8("list_pend"));
         list_pend->setGeometry(QRect(10, 50, 111, 421));
         list_pend->setFont(font);
+        list_pend->setMouseTracking(true);
         list_pend->setContextMenuPolicy(Qt::CustomContextMenu);
+        list_pend->setToolTipDuration(1);
         list_pend->setDragEnabled(true);
         list_pend->setDragDropOverwriteMode(false);
         list_pend->setDragDropMode(QAbstractItemView::DragDrop);
@@ -103,6 +103,7 @@ public:
         list_push->setObjectName(QString::fromUtf8("list_push"));
         list_push->setGeometry(QRect(130, 50, 111, 421));
         list_push->setFont(font);
+        list_push->setMouseTracking(true);
         list_push->setContextMenuPolicy(Qt::CustomContextMenu);
         list_push->setDragEnabled(true);
         list_push->setDragDropOverwriteMode(false);
@@ -112,6 +113,7 @@ public:
         list_dept->setObjectName(QString::fromUtf8("list_dept"));
         list_dept->setGeometry(QRect(250, 50, 111, 421));
         list_dept->setFont(font);
+        list_dept->setMouseTracking(true);
         list_dept->setContextMenuPolicy(Qt::CustomContextMenu);
         list_dept->setDragEnabled(true);
         list_dept->setDragDropOverwriteMode(false);

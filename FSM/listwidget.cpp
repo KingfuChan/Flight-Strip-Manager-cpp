@@ -1,4 +1,5 @@
 #include "listwidget.h"
+#include "tracker.h"
 
 #include <QListWidget>
 #include <QListWidgetItem>
@@ -10,18 +11,19 @@
 #include <QDebug>
 
 
-QBrush brush_b_def = QBrush(QColor(255,255,255),Qt::NoBrush);
+QBrush brush_b_def = QBrush(QColor(255,255,255));
 QBrush brush_b_clr = QBrush(QColor(0,170,0));
 QBrush brush_b_tit = QBrush(QColor(0,0,0));
-QBrush brush_f_def = QBrush(QColor(0,0,0),Qt::NoBrush);
-QBrush brush_f_clr = QBrush(QColor(255,255,255),Qt::NoBrush);
-QBrush brush_f_tit = QBrush(QColor(255,255,255),Qt::NoBrush);
+QBrush brush_f_def = QBrush(QColor(0,0,0));
+QBrush brush_f_clr = QBrush(QColor(255,255,255));
+QBrush brush_f_tit = QBrush(QColor(255,255,255));
 
 
 CustomListWidget::CustomListWidget(QWidget *parent)
     :QListWidget(parent)
 {
     QObject::connect(this,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(showContext(QPoint)));
+    QObject::connect(this,SIGNAL(itemChanged(QListWidgetItem*)),this,SLOT(calcSequence()));
 }
 
 CustomListWidget::~CustomListWidget(){
@@ -64,6 +66,7 @@ void CustomListWidget::dropEvent(QDropEvent *event){
     }
 
     clearSelection();
+    calcSequence();
     delete [] before;
     delete [] after;
 }
@@ -71,27 +74,20 @@ void CustomListWidget::dropEvent(QDropEvent *event){
 void CustomListWidget::enterEvent(QEvent *event){
     QListWidget::enterEvent(event);
     clearSelection();
+    calcSequence();
 }
 
 void CustomListWidget::showContext(QPoint pos){
-    int r,i,seq;
-    r = row(itemAt(pos));
+    int r = row(itemAt(pos));
     if (r<=0) return; //clicked on title
-
-    //calculate sequence
-    if(item(r)->background()==brush_b_clr)
-        seq = 0;
-    else
-        for (i=seq=1;i<r;i++)
-            if (item(i)->background()==brush_b_def)
-                seq++;
+    calcSequence();
 
     //add menu actions
     QMenu *popMenu = new QMenu(this);
     QAction *actionSeq = new QAction;
     QAction *actionRes = new QAction;
     QAction *actionDel = new QAction;
-    actionSeq->setText(QString("Seq: %1").arg(seq));
+    actionSeq->setText(item(r)->toolTip());
     actionSeq->setEnabled(0);
     popMenu->addAction(actionSeq);
     popMenu->addSeparator();
@@ -109,11 +105,21 @@ void CustomListWidget::showContext(QPoint pos){
         emit resetItem(temp);
     }
     else if (choice==actionDel)
-        delete item(r);
+        emit deleteItem(item(r));
 
     delete popMenu;
     delete actionSeq;
     delete actionRes;
     delete actionDel;
 
+}
+
+void CustomListWidget::calcSequence(){
+    int i,seq;
+    for (i=seq=1;i<count();i++){
+        if (item(i)->background()==brush_b_clr)
+            item(i)->setToolTip(QString("Clrd"));
+        else
+            item(i)->setToolTip(QString("Num. %1").arg(seq++));
+    }
 }

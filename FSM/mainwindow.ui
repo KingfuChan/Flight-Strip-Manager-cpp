@@ -74,8 +74,14 @@
       <pointsize>10</pointsize>
      </font>
     </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="toolTipDuration">
+     <number>1</number>
     </property>
     <property name="dragEnabled">
      <bool>true</bool>
@@ -104,6 +110,9 @@
       <family>Calibri</family>
       <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
     </property>
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
@@ -135,6 +144,9 @@
       <family>Calibri</family>
       <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
     </property>
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
@@ -223,17 +235,11 @@
    </property>
   </action>
   <action name="actionStatistics">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Statistics</string>
    </property>
   </action>
   <action name="actionAbout">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>About</string>
    </property>

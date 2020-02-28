@@ -5,6 +5,7 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 
+
 class CustomListWidget : public QListWidget{
     Q_OBJECT
 
@@ -15,9 +16,11 @@ public:
 
 signals:
     void resetItem(QListWidgetItem*);
+    void deleteItem(QListWidgetItem*);
 
 public slots:
     void showContext(QPoint);
+    void calcSequence();
 
 protected:
     void enterEvent(QEvent*) override;

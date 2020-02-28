@@ -16,21 +16,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    about.cpp \
     lineedit.cpp \
     listwidget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tracker.cpp
 
 HEADERS += \
     lineedit.h \
     listwidget.h \
     mainwindow.h \
+    tracker.h \
     ui_mainwindow.h
 
 FORMS += \
     mainwindow.ui
 
+RC_ICONS = icon.ico
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# customize exe info
+VERSION = 1.1.0
+QMAKE_TARGET_PRODUCT = Flight Strip Manager
+QMAKE_TARGET_DESCRIPTION = F.S.M. for online ATC controllers

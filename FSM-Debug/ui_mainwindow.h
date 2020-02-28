@@ -13,13 +13,13 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 #include <lineedit.h>
+#include <listwidget.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -38,9 +38,9 @@ public:
     QWidget *centralwidget;
     QPushButton *btn_add;
     QPushButton *btn_reset;
-    QListWidget *list_pend;
-    QListWidget *list_push;
-    QListWidget *list_dept;
+    CustomListWidget *list_pend;
+    CustomListWidget *list_push;
+    CustomListWidget *list_dept;
     CustomLineEdit *lineEdit;
     QMenuBar *menuBar;
     QMenu *menuSettings;
@@ -61,10 +61,8 @@ public:
         actionStay_on_top->setCheckable(true);
         actionStatistics = new QAction(MainWindow);
         actionStatistics->setObjectName(QString::fromUtf8("actionStatistics"));
-        actionStatistics->setEnabled(false);
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
-        actionAbout->setEnabled(false);
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
         actionOpac_Incr = new QAction(MainWindow);
@@ -90,28 +88,32 @@ public:
         btn_reset->setObjectName(QString::fromUtf8("btn_reset"));
         btn_reset->setGeometry(QRect(250, 10, 111, 31));
         btn_reset->setFont(font1);
-        list_pend = new QListWidget(centralwidget);
+        list_pend = new CustomListWidget(centralwidget);
         list_pend->setObjectName(QString::fromUtf8("list_pend"));
         list_pend->setGeometry(QRect(10, 50, 111, 421));
         list_pend->setFont(font);
+        list_pend->setMouseTracking(true);
         list_pend->setContextMenuPolicy(Qt::CustomContextMenu);
+        list_pend->setToolTipDuration(1);
         list_pend->setDragEnabled(true);
         list_pend->setDragDropOverwriteMode(false);
         list_pend->setDragDropMode(QAbstractItemView::DragDrop);
         list_pend->setDefaultDropAction(Qt::MoveAction);
-        list_push = new QListWidget(centralwidget);
+        list_push = new CustomListWidget(centralwidget);
         list_push->setObjectName(QString::fromUtf8("list_push"));
         list_push->setGeometry(QRect(130, 50, 111, 421));
         list_push->setFont(font);
+        list_push->setMouseTracking(true);
         list_push->setContextMenuPolicy(Qt::CustomContextMenu);
         list_push->setDragEnabled(true);
         list_push->setDragDropOverwriteMode(false);
         list_push->setDragDropMode(QAbstractItemView::DragDrop);
         list_push->setDefaultDropAction(Qt::MoveAction);
-        list_dept = new QListWidget(centralwidget);
+        list_dept = new CustomListWidget(centralwidget);
         list_dept->setObjectName(QString::fromUtf8("list_dept"));
         list_dept->setGeometry(QRect(250, 50, 111, 421));
         list_dept->setFont(font);
+        list_dept->setMouseTracking(true);
         list_dept->setContextMenuPolicy(Qt::CustomContextMenu);
         list_dept->setDragEnabled(true);
         list_dept->setDragDropOverwriteMode(false);
