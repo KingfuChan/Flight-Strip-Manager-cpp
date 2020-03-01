@@ -1,5 +1,5 @@
 # Flight-Strip-Manager-cpp
-Flight strip manager for online ATC controllers, constructed with Qt and C++
+Flight Strip Manager for online ATC controllers built with Qt and C++
 
 
 ## Introduction
