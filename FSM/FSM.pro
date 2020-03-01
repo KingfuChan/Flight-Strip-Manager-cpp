@@ -46,3 +46,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 VERSION = 1.1.0
 QMAKE_TARGET_PRODUCT = Flight Strip Manager
 QMAKE_TARGET_DESCRIPTION = F.S.M. for online ATC controllers
+QMAKE_TARGET_COPYRIGHT = Kingfu Chan
