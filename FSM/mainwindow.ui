@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
-    <height>662</height>
+    <width>701</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="font">
@@ -23,7 +23,7 @@
    <locale language="English" country="UnitedStates"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btn_add">
+   <widget class="QPushButton" name="buttonAdd">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -41,7 +41,7 @@
      <string>ADD</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_reset">
+   <widget class="QPushButton" name="buttonReset">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -59,7 +59,7 @@
      <string>RESET</string>
     </property>
    </widget>
-   <widget class="CustomListWidget" name="list_pend">
+   <widget class="CustomListWidget" name="listPend">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -96,7 +96,7 @@
      <enum>Qt::MoveAction</enum>
     </property>
    </widget>
-   <widget class="CustomListWidget" name="list_push">
+   <widget class="CustomListWidget" name="listPush">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -130,7 +130,7 @@
      <enum>Qt::MoveAction</enum>
     </property>
    </widget>
-   <widget class="CustomListWidget" name="list_dept">
+   <widget class="CustomListWidget" name="listDepa">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -194,11 +194,11 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>648</width>
+     <width>701</width>
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuSettings">
+   <widget class="QMenu" name="menuMain">
     <property name="title">
      <string>Menu</string>
     </property>
@@ -221,7 +221,7 @@
     <addaction name="actionReset"/>
     <addaction name="actionExit"/>
    </widget>
-   <addaction name="menuSettings"/>
+   <addaction name="menuMain"/>
   </widget>
   <action name="actionStay_on_top">
    <property name="checkable">
@@ -301,16 +301,16 @@
  </customwidgets>
  <tabstops>
   <tabstop>lineEdit</tabstop>
-  <tabstop>btn_add</tabstop>
-  <tabstop>list_pend</tabstop>
-  <tabstop>list_push</tabstop>
-  <tabstop>list_dept</tabstop>
-  <tabstop>btn_reset</tabstop>
+  <tabstop>buttonAdd</tabstop>
+  <tabstop>listPend</tabstop>
+  <tabstop>listPush</tabstop>
+  <tabstop>listDepa</tabstop>
+  <tabstop>buttonReset</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>btn_add</sender>
+   <sender>buttonAdd</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>addFlight()</slot>
@@ -326,7 +326,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>btn_reset</sender>
+   <sender>buttonReset</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>resetLists()</slot>
@@ -344,7 +344,7 @@
   <connection>
    <sender>lineEdit</sender>
    <signal>returnPressed()</signal>
-   <receiver>btn_add</receiver>
+   <receiver>buttonAdd</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">

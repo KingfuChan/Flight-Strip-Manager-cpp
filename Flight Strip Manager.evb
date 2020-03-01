@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="windows-1252"?>
 <>
-  <InputFile>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\FSM.exe</InputFile>
-  <OutputFile>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\Flight Strip Manager.exe</OutputFile>
+  <InputFile>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\FSM.exe</InputFile>
+  <OutputFile>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\FSM.exe</OutputFile>
   <Files>
     <Enabled>True</Enabled>
     <DeleteExtractedOnExit>False</DeleteExtractedOnExit>
@@ -17,44 +17,8 @@
         <Files>
           <File>
             <Type>2</Type>
-            <Name>libgcc_s_seh-1.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\libgcc_s_seh-1.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
-            <Type>2</Type>
-            <Name>libstdc++-6.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\libstdc++-6.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
-            <Type>2</Type>
-            <Name>libwinpthread-1.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\libwinpthread-1.dll</File>
-            <ActiveX>False</ActiveX>
-            <ActiveXInstall>False</ActiveXInstall>
-            <Action>0</Action>
-            <OverwriteDateTime>False</OverwriteDateTime>
-            <OverwriteAttributes>False</OverwriteAttributes>
-            <PassCommandLine>False</PassCommandLine>
-            <HideFromDialogs>0</HideFromDialogs>
-          </File>
-          <File>
-            <Type>2</Type>
             <Name>Qt5Core.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\Qt5Core.dll</File>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\Qt5Core.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -66,7 +30,7 @@
           <File>
             <Type>2</Type>
             <Name>Qt5Gui.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\Qt5Gui.dll</File>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\Qt5Gui.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -78,7 +42,7 @@
           <File>
             <Type>2</Type>
             <Name>Qt5Widgets.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\Qt5Widgets.dll</File>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\Qt5Widgets.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -98,7 +62,7 @@
               <File>
                 <Type>2</Type>
                 <Name>qwindows.dll</Name>
-                <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\platforms\qwindows.dll</File>
+                <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\platforms\qwindows.dll</File>
                 <ActiveX>False</ActiveX>
                 <ActiveXInstall>False</ActiveXInstall>
                 <Action>0</Action>
@@ -120,7 +84,7 @@
               <File>
                 <Type>2</Type>
                 <Name>qwindowsvistastyle.dll</Name>
-                <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\styles\qwindowsvistastyle.dll</File>
+                <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\styles\qwindowsvistastyle.dll</File>
                 <ActiveX>False</ActiveX>
                 <ActiveXInstall>False</ActiveXInstall>
                 <Action>0</Action>
@@ -134,7 +98,7 @@
           <File>
             <Type>2</Type>
             <Name>FSM.exe</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\FSM.exe</File>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\FSM.exe</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>
@@ -146,7 +110,43 @@
           <File>
             <Type>2</Type>
             <Name>libEGL.dll</Name>
-            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist_minimum\libEGL.dll</File>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\libEGL.dll</File>
+            <ActiveX>False</ActiveX>
+            <ActiveXInstall>False</ActiveXInstall>
+            <Action>0</Action>
+            <OverwriteDateTime>False</OverwriteDateTime>
+            <OverwriteAttributes>False</OverwriteAttributes>
+            <PassCommandLine>False</PassCommandLine>
+            <HideFromDialogs>0</HideFromDialogs>
+          </File>
+          <File>
+            <Type>2</Type>
+            <Name>libgcc_s_seh-1.dll</Name>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\libgcc_s_seh-1.dll</File>
+            <ActiveX>False</ActiveX>
+            <ActiveXInstall>False</ActiveXInstall>
+            <Action>0</Action>
+            <OverwriteDateTime>False</OverwriteDateTime>
+            <OverwriteAttributes>False</OverwriteAttributes>
+            <PassCommandLine>False</PassCommandLine>
+            <HideFromDialogs>0</HideFromDialogs>
+          </File>
+          <File>
+            <Type>2</Type>
+            <Name>libstdc++-6.dll</Name>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\libstdc++-6.dll</File>
+            <ActiveX>False</ActiveX>
+            <ActiveXInstall>False</ActiveXInstall>
+            <Action>0</Action>
+            <OverwriteDateTime>False</OverwriteDateTime>
+            <OverwriteAttributes>False</OverwriteAttributes>
+            <PassCommandLine>False</PassCommandLine>
+            <HideFromDialogs>0</HideFromDialogs>
+          </File>
+          <File>
+            <Type>2</Type>
+            <Name>libwinpthread-1.dll</Name>
+            <File>D:\Study\Qt Projects\Flight-Strip-Manager-cpp\dist\libwinpthread-1.dll</File>
             <ActiveX>False</ActiveX>
             <ActiveXInstall>False</ActiveXInstall>
             <Action>0</Action>

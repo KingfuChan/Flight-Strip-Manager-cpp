@@ -1,12 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "tracker.h"
+#include "msgbox.h"
 
 #include <QtCore>
-#include <QMessageBox>
 #include <QCloseEvent>
 #include <QBrush>
-#include <QDebug> //debug only
 
 extern QString about_lines;
 
@@ -21,17 +20,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     //connect signal slots with parameters
-    QObject::connect(ui->list_pend, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusClr(QListWidgetItem*)));
-    QObject::connect(ui->list_push, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusClr(QListWidgetItem*)));
-    QObject::connect(ui->list_dept, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusDep(QListWidgetItem*)));
+    QObject::connect(ui->listPend, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusClr(QListWidgetItem*)));
+    QObject::connect(ui->listPush, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusClr(QListWidgetItem*)));
+    QObject::connect(ui->listDepa, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusDep(QListWidgetItem*)));
 
-    QObject::connect(ui->list_pend, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
-    QObject::connect(ui->list_push, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
-    QObject::connect(ui->list_dept, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
+    QObject::connect(ui->listPend, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
+    QObject::connect(ui->listPush, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
+    QObject::connect(ui->listDepa, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
 
-    QObject::connect(ui->list_pend, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
-    QObject::connect(ui->list_push, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
-    QObject::connect(ui->list_dept, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
+    QObject::connect(ui->listPend, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
+    QObject::connect(ui->listPush, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
+    QObject::connect(ui->listDepa, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
 
     QObject::connect(ui->menuBar, SIGNAL(triggered(QAction*)), this, SLOT(clickMenu(QAction*)));
 
@@ -51,20 +50,15 @@ MainWindow::~MainWindow()
 //override events
 void MainWindow::resizeEvent(QResizeEvent *event){
     int h;
-    h = height()-ui->menuBar->height()-ui->list_dept->y()-10;
-    ui->list_pend->setFixedHeight(h);
-    ui->list_push->setFixedHeight(h);
-    ui->list_dept->setFixedHeight(h);
+    h = height()-ui->menuBar->height()-ui->listDepa->y()-10;
+    ui->listPend->setFixedHeight(h);
+    ui->listPush->setFixedHeight(h);
+    ui->listDepa->setFixedHeight(h);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
-    QMessageBox::StandardButtons confirm;
-    confirm = QMessageBox::question(this,windowTitle(),
-                                    "Are you sure to exit?",
-                                    QMessageBox::Ok|QMessageBox::Cancel,
-                                    QMessageBox::Cancel);
-    if (confirm!=QMessageBox::Ok)
-        event->ignore();
+    bool confirm = requestMessageBox(windowTitle(), "Confirm exit program?", 2);
+    if (!confirm) event->ignore();
 }
 
 //custom methods
@@ -88,9 +82,9 @@ void MainWindow::setupLists(){
     title_dept->setText("Departure");
     title_dept->setFlags(Qt::NoItemFlags);
 
-    ui->list_pend->addItem(title_pend);
-    ui->list_push->addItem(title_push);
-    ui->list_dept->addItem(title_dept);
+    ui->listPend->addItem(title_pend);
+    ui->listPush->addItem(title_push);
+    ui->listDepa->addItem(title_dept);
 }
 
 //slots
@@ -122,12 +116,10 @@ void MainWindow::clickMenu(QAction *action){
     else if (action==ui->actionReset)
         resetLists();
     else if (action==ui->actionAbout){
-        QMessageBox about;
-        about.about(this,windowTitle(),about_lines);
+        requestMessageBox(windowTitle(), about_lines, 1);
     }
     else if (action==ui->actionStatistics){
-        QMessageBox stats;
-        stats.information(this,windowTitle(),generateReport(ListFlight));
+        requestMessageBox(windowTitle(), generateReport(ListFlight), 1);
     }
 }
 
@@ -137,24 +129,20 @@ void MainWindow::addFlight(){
     ui->lineEdit->clear();
     if (callsign.length()<=0) return;
     FLIGHT *rec = findFlight(ListFlight,callsign);
-    if (rec==nullptr){
-    }else if (rec->status==6){ //callsign in use but departed
-        QMessageBox::StandardButtons confirm;
-        confirm = QMessageBox::question(this,windowTitle(),
-                                        QString("Callsign %1 already exists but has departed.\n"
-                                                "Confirm still add to list?").arg(callsign),
-                                        QMessageBox::Ok|QMessageBox::Cancel,
-                                        QMessageBox::Cancel);
-        if (confirm!=QMessageBox::Ok)
-            return;
-        rec->callsign = QString("_%1").arg(rec->callsign); //distinguish
+    if (rec!=nullptr){
+        if (rec->status==6){ //callsign in use but departed
+            bool confirm = requestMessageBox(windowTitle(),
+                                             QString("Callsign %1 already exists but has departed.\n"
+                                                     "Confirm still add to list?").arg(callsign), 2);
+            if (!confirm) return;
+            rec->callsign = QString("_%1").arg(rec->callsign); //distinguish
+        }else return; //callsign in use not departed
     }
-    else return;
     QListWidgetItem *item = new QListWidgetItem;
     item->setText(callsign);
     item->setBackground(brush_b_def);
     item->setForeground(brush_f_def);
-    ui->list_pend->addItem(item);
+    ui->listPend->addItem(item);
     addNew(ListFlight,callsign);
 }
 
@@ -164,7 +152,7 @@ void MainWindow::addFlight(QListWidgetItem *item){ //reset existing flight
         addNew(ListFlight,item->text());
     else
         temp->status = 0;
-    ui->list_pend->addItem(item);
+    ui->listPend->addItem(item);
 }
 
 void MainWindow::deleteFlight(QListWidgetItem *item){
@@ -173,18 +161,14 @@ void MainWindow::deleteFlight(QListWidgetItem *item){
 }
 
 void MainWindow::resetLists(){
-    QMessageBox::StandardButtons confirm;
-    confirm = QMessageBox::question(this,windowTitle(),
-                                    "Are you sure to reset all lists?",
-                                    QMessageBox::Ok|QMessageBox::Cancel,
-                                    QMessageBox::Cancel);
-    if (confirm!=QMessageBox::Ok) return;
+    bool confirm = requestMessageBox(windowTitle(), "Confirm reset all lists?", 2);
+    if (!confirm) return;
 
     destroyList(ListFlight);
     ListFlight = createList();
-    ui->list_pend->clear();
-    ui->list_push->clear();
-    ui->list_dept->clear();
+    ui->listPend->clear();
+    ui->listPush->clear();
+    ui->listDepa->clear();
     setupLists();
 }
 

@@ -21,12 +21,14 @@ SOURCES += \
     listwidget.cpp \
     main.cpp \
     mainwindow.cpp \
+    msgbox.cpp \
     tracker.cpp
 
 HEADERS += \
     lineedit.h \
     listwidget.h \
     mainwindow.h \
+    msgbox.h \
     tracker.h \
     ui_mainwindow.h
 

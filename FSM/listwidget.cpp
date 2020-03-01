@@ -8,10 +8,9 @@
 #include <QString>
 #include <QMenu>
 #include <QAction>
-#include <QDebug>
 
 
-QBrush brush_b_def = QBrush(QColor(255,255,255));
+QBrush brush_b_def = QBrush(QColor(255,255,255), Qt::NoBrush);
 QBrush brush_b_clr = QBrush(QColor(0,170,0));
 QBrush brush_b_tit = QBrush(QColor(0,0,0));
 QBrush brush_f_def = QBrush(QColor(0,0,0));
