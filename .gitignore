@@ -44,3 +44,6 @@ FSM-Release/ui_mainwindow.h
 FSM-Debug/moc_timer.cpp
 FSM-Debug/moc_timer.o
 FSM-Debug/timer.o
+FSM-Release/moc_timer.cpp
+FSM-Release/moc_timer.o
+FSM-Release/timer.o
