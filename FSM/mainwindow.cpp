@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupLists();
     ListFlight = createList();
+
 }
 
 MainWindow::~MainWindow()

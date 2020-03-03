@@ -22,6 +22,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     msgbox.cpp \
+    timer.cpp \
     tracker.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     listwidget.h \
     mainwindow.h \
     msgbox.h \
+    timer.h \
     tracker.h \
     ui_mainwindow.h
 

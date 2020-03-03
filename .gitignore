@@ -41,3 +41,6 @@ FSM-Release/msgbox.o
 FSM-Release/object_script.FSM
 FSM-Release/tracker.o
 FSM-Release/ui_mainwindow.h
+FSM-Debug/moc_timer.cpp
+FSM-Debug/moc_timer.o
+FSM-Debug/timer.o

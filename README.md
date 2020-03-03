@@ -18,9 +18,14 @@ So this program was developed mainly to aid DELs, GNDs, TWRs to better manage th
 3. Auto-calculated sequence: Hover your mouse on a strip an the sequence of that flight will pop up.
 4. Distinguished color: Double click a strip in the list, its turn green (cleared), double click again, back to normal (standby).
     Note that in departure list, the second double click will delete the strip, meaning that the flight has departed.
-5. Window opacity and Stay-on-Top: These two functions enable users to monitor ES and this application at the same time.
-6. Convenient key shortcuts: Improves efficiency via a set of key shortcuts each matching a major funcion.
-7. Statistics: Record every flight that has been added into list and those already departed.
+5. Timer: Help control the seperation between flights. Detailed functions:
+    + Left click: start/stop timer.
+    + Right click: cycle preset time. Preset time (seconds): 30, 60, 120, 180
+    + Scroll: precise control. Add or minus 1 second per scroll.
+    + Beeping alerts on time-out.
+6. Window opacity and Stay-on-Top: These two functions enable users to monitor ES and this application at the same time.
+7. Convenient key shortcuts: Improves efficiency via a set of key shortcuts each matching a major funcion.
+8. Statistics: Record every flight that has been added into list and those already departed.
 
 
 ## Download and installation
