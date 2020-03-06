@@ -9,6 +9,7 @@ class LCDTimer : public QLCDNumber{
 public:
     LCDTimer(QWidget *parent = nullptr);
     ~LCDTimer();
+    void setDisplayMode(int mode);
 
 public slots:
     void onTimeout();
@@ -16,7 +17,8 @@ public slots:
 private:
     QTimer *timer;
     const int timeList[4]={30,60,120,180};
-    int status, second;
+    int status, second, displayMode, dValue;
+    void displayTime(int time);
 
 protected:
     void mouseReleaseEvent(QMouseEvent*);

@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QTimer>
+#include <QString>
 #include <QMouseEvent>
 
 
@@ -10,8 +11,9 @@ LCDTimer::LCDTimer(QWidget *parent)
 {
     timer = new QTimer(this);
     status = 0;
-    second = timeList[0];
-    display(second);
+    second = dValue = timeList[0];
+    setDisplayMode(0); //0 for sss, 1 for m:ss
+    displayTime(second);
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(onTimeout()));
 }
 
@@ -19,20 +21,48 @@ LCDTimer::~LCDTimer(){
     delete timer;
 }
 
+void LCDTimer::setDisplayMode(int mode){
+    displayMode = mode;
+    displayTime(dValue);
+}
+
+void LCDTimer::displayTime(int time){
+    if (time<0){ //clear display
+        display(nullptr);
+        return;
+    }
+    dValue = time;
+    if (!displayMode){ //sss
+        display(time);
+    }else{ //m:ss
+        int min,sec;
+        min = time / 60;
+        sec = time % 60;
+        char t[5];
+        t[0] = '0' + min;
+        t[1] = ':';
+        t[2] = '0' + sec / 10;
+        t[3] = '0' + sec % 10;
+        t[4] = '\0';
+        display(t);
+    }
+}
+
 void LCDTimer::onTimeout(){
     static int beeptime;
+    static bool flicker; //on when ==ture
     switch (status) {
     case 3: //flickering LCD number
-        if (intValue())
-            display(nullptr);
+        if ((flicker=!flicker)==true)
+            displayTime(second);
         else
-            display(second);
+            displayTime(-1);
         break;
     case 2: //play beeping sound flickering LCD
-        if (intValue())
-            display(nullptr);
+        if ((flicker=!flicker)==true)
+            displayTime(second);
         else
-            display(second);
+            displayTime(0);
         QApplication::beep();
         beeptime++;
         if (beeptime>=5){
@@ -41,15 +71,15 @@ void LCDTimer::onTimeout(){
         }
         break;
     case 1: //normal count down
-        int t = intValue()-1;
+        int t = dValue-1;
         if (t)
-            display(t);
+            displayTime(t);
         else{
-            display(0);
+            displayTime(0);
             status = 2;
             timer->setInterval(200);
             QApplication::beep();
-            beeptime = 0;
+            beeptime = flicker = 0;
         }
         break;
     }
@@ -58,10 +88,10 @@ void LCDTimer::onTimeout(){
 void LCDTimer::mouseReleaseEvent(QMouseEvent *event){
     if (event->button()==Qt::RightButton){
         int i;
-        for (i=0; i<4 && intValue()>=timeList[i]; i++); //locate next preset time
+        for (i=0; i<4 && dValue>=timeList[i]; i++); //locate next preset time
         i = i<4 ? i : 0;
         second = timeList[i];
-        display(second);
+        displayTime(second);
     }else if (event->button()==Qt::LeftButton){
         if (!status){
             status = 1;
@@ -73,7 +103,7 @@ void LCDTimer::mouseReleaseEvent(QMouseEvent *event){
         }else{
             timer->stop();
             status = 0;
-            display(second);
+            displayTime(second);
         }
     }
 }
@@ -81,7 +111,7 @@ void LCDTimer::mouseReleaseEvent(QMouseEvent *event){
 void LCDTimer::wheelEvent(QWheelEvent *event){
     if (status) return; //lock wheel when timer acive
     int d = event->angleDelta().y()/120;
-    second = intValue()+d;
-    second = second<1 || second>999 ? 1: second;
-    display(second);
+    second = dValue+d;
+    second = second<1 || second>599 ? 1: second;
+    displayTime(second);
 }

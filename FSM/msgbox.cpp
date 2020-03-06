@@ -9,6 +9,7 @@ bool requestMessageBox(QString title, QString text, int mode){
     QMessageBox msgbox;
     msgbox.setWindowTitle(title);
     msgbox.setText(text);
+    msgbox.setWindowFlag(Qt::WindowStaysOnTopHint);
 
     switch (mode) {
     case 1: //roger only
