@@ -28,7 +28,7 @@
      <rect>
       <x>130</x>
       <y>10</y>
-      <width>81</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -44,9 +44,9 @@
    <widget class="QPushButton" name="buttonReset">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>210</x>
       <y>10</y>
-      <width>81</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -191,9 +191,9 @@
    <widget class="LCDTimer" name="lcdNumber">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>290</x>
       <y>10</y>
-      <width>51</width>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -207,7 +207,7 @@
      <enum>QFrame::Sunken</enum>
     </property>
     <property name="digitCount">
-     <number>3</number>
+     <number>4</number>
     </property>
    </widget>
   </widget>
@@ -234,8 +234,16 @@
      <addaction name="actionOpac_Decr"/>
      <addaction name="actionOpac_Rest"/>
     </widget>
+    <widget class="QMenu" name="menuTimer_format">
+     <property name="title">
+      <string>Timer format</string>
+     </property>
+     <addaction name="actionSec"/>
+     <addaction name="actionMinSec"/>
+    </widget>
     <addaction name="menuSet_opacity"/>
     <addaction name="actionStay_on_top"/>
+    <addaction name="menuTimer_format"/>
     <addaction name="separator"/>
     <addaction name="actionStatistics"/>
     <addaction name="actionAbout"/>
@@ -306,6 +314,25 @@
    </property>
    <property name="text">
     <string>Current: 100%</string>
+   </property>
+  </action>
+  <action name="actionSec">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Seconds</string>
+   </property>
+  </action>
+  <action name="actionMinSec">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Min:Sec</string>
    </property>
   </action>
  </widget>

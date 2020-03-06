@@ -122,6 +122,16 @@ void MainWindow::clickMenu(QAction *action){
     else if (action==ui->actionStatistics){
         requestMessageBox(windowTitle(), generateReport(ListFlight), 1);
     }
+    else if (action==ui->actionSec){
+        ui->lcdNumber->setDisplayMode(0);
+        ui->actionSec->setChecked(1);
+        ui->actionMinSec->setChecked(0);
+    }
+    else if (action==ui->actionMinSec){
+        ui->lcdNumber->setDisplayMode(1);
+        ui->actionSec->setChecked(0);
+        ui->actionMinSec->setChecked(1);
+    }
 }
 
 void MainWindow::addFlight(){
