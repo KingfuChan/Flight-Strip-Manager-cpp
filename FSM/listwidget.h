@@ -17,10 +17,12 @@ public:
 signals:
     void resetItem(QListWidgetItem*);
     void deleteItem(QListWidgetItem*);
+    void deleteAfterDrop(QString);
 
 public slots:
     void showContext(QPoint);
     void calcSequence();
+    void deletebyText(QString);
 
 protected:
     void enterEvent(QEvent*) override;

@@ -32,6 +32,13 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->listPush, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
     QObject::connect(ui->listDepa, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
 
+    QObject::connect(ui->listPend, SIGNAL(deleteAfterDrop(QString)), ui->listPush, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listPend, SIGNAL(deleteAfterDrop(QString)), ui->listDepa, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listPush, SIGNAL(deleteAfterDrop(QString)), ui->listPend, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listPush, SIGNAL(deleteAfterDrop(QString)), ui->listDepa, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listDepa, SIGNAL(deleteAfterDrop(QString)), ui->listPend, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listDepa, SIGNAL(deleteAfterDrop(QString)), ui->listPush, SLOT(deletebyText(QString)));
+
     QObject::connect(ui->menuBar, SIGNAL(triggered(QAction*)), this, SLOT(clickMenu(QAction*)));
 
     setFixedWidth(371);

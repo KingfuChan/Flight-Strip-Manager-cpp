@@ -39,6 +39,8 @@ void CustomListWidget::dropEvent(QDropEvent *event){
         before[i] = item(i)->text();
 
     //event accept
+    if (event->source()==this) //internal drag&drop
+        event->setDropAction(Qt::MoveAction);
     QListWidget::dropEvent(event);
 
     //scan list after event
@@ -62,6 +64,7 @@ void CustomListWidget::dropEvent(QDropEvent *event){
         temp->setBackground(brush_b_def);
         temp->setForeground(brush_f_def);
         addItem(temp);
+        emit deleteAfterDrop(temp->text()); //debugged, ctrl or alt won't trigger copy action
     }
 
     clearSelection();
@@ -121,4 +124,12 @@ void CustomListWidget::calcSequence(){
         else
             item(i)->setToolTip(QString("Num. %1").arg(seq++));
     }
+}
+
+void CustomListWidget::deletebyText(QString text){
+    int i;
+    for (i=1; i<count()&&item(i)->text()!=text; i++);
+    if (i==count()) return;
+    QListWidgetItem *del = takeItem(i);
+    delete del;
 }

@@ -86,14 +86,8 @@
     <property name="dragEnabled">
      <bool>true</bool>
     </property>
-    <property name="dragDropOverwriteMode">
-     <bool>false</bool>
-    </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
-    </property>
-    <property name="defaultDropAction">
-     <enum>Qt::MoveAction</enum>
     </property>
    </widget>
    <widget class="CustomListWidget" name="listPush">
@@ -120,14 +114,8 @@
     <property name="dragEnabled">
      <bool>true</bool>
     </property>
-    <property name="dragDropOverwriteMode">
-     <bool>false</bool>
-    </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
-    </property>
-    <property name="defaultDropAction">
-     <enum>Qt::MoveAction</enum>
     </property>
    </widget>
    <widget class="CustomListWidget" name="listDepa">
@@ -154,14 +142,8 @@
     <property name="dragEnabled">
      <bool>true</bool>
     </property>
-    <property name="dragDropOverwriteMode">
-     <bool>false</bool>
-    </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
-    </property>
-    <property name="defaultDropAction">
-     <enum>Qt::MoveAction</enum>
     </property>
    </widget>
    <widget class="CustomLineEdit" name="lineEdit">
