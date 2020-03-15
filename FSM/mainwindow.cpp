@@ -9,8 +9,8 @@
 
 extern QString about_lines;
 
-extern QBrush brush_b_def,brush_b_clr,brush_b_tit;
-extern QBrush brush_f_def,brush_f_clr,brush_f_tit;
+extern QBrush brush_b_def,brush_b_clr;
+extern QBrush brush_f_def,brush_f_clr;
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -18,26 +18,32 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    clickMenu(ui->actionSec);
+    clickMenu(ui->actionDrag_Drop);
 
     //connect signal slots with parameters
-    QObject::connect(ui->listPend, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusClr(QListWidgetItem*)));
-    QObject::connect(ui->listPush, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusClr(QListWidgetItem*)));
-    QObject::connect(ui->listDepa, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(setStatusDep(QListWidgetItem*)));
+    QObject::connect(ui->listPend, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(doubleclickItem(QListWidgetItem*)));
+    QObject::connect(ui->listTaxi, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(doubleclickItem(QListWidgetItem*)));
+    QObject::connect(ui->listDepa, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(doubleclickItem(QListWidgetItem*)));
 
     QObject::connect(ui->listPend, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
-    QObject::connect(ui->listPush, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
+    QObject::connect(ui->listTaxi, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
     QObject::connect(ui->listDepa, SIGNAL(resetItem(QListWidgetItem*)), this, SLOT(addFlight(QListWidgetItem*)));
 
     QObject::connect(ui->listPend, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
-    QObject::connect(ui->listPush, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
+    QObject::connect(ui->listTaxi, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
     QObject::connect(ui->listDepa, SIGNAL(deleteItem(QListWidgetItem*)), this, SLOT(deleteFlight(QListWidgetItem*)));
 
-    QObject::connect(ui->listPend, SIGNAL(deleteAfterDrop(QString)), ui->listPush, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listPend, SIGNAL(deleteAfterDrop(QString)), ui->listTaxi, SLOT(deletebyText(QString)));
     QObject::connect(ui->listPend, SIGNAL(deleteAfterDrop(QString)), ui->listDepa, SLOT(deletebyText(QString)));
-    QObject::connect(ui->listPush, SIGNAL(deleteAfterDrop(QString)), ui->listPend, SLOT(deletebyText(QString)));
-    QObject::connect(ui->listPush, SIGNAL(deleteAfterDrop(QString)), ui->listDepa, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listTaxi, SIGNAL(deleteAfterDrop(QString)), ui->listPend, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listTaxi, SIGNAL(deleteAfterDrop(QString)), ui->listDepa, SLOT(deletebyText(QString)));
     QObject::connect(ui->listDepa, SIGNAL(deleteAfterDrop(QString)), ui->listPend, SLOT(deletebyText(QString)));
-    QObject::connect(ui->listDepa, SIGNAL(deleteAfterDrop(QString)), ui->listPush, SLOT(deletebyText(QString)));
+    QObject::connect(ui->listDepa, SIGNAL(deleteAfterDrop(QString)), ui->listTaxi, SLOT(deletebyText(QString)));
+
+    QObject::connect(ui->listPend, SIGNAL(changeStatus(QString, int)), this, SLOT(setFlightStatus(QString, int)));
+    QObject::connect(ui->listTaxi, SIGNAL(changeStatus(QString, int)), this, SLOT(setFlightStatus(QString, int)));
+    QObject::connect(ui->listDepa, SIGNAL(changeStatus(QString, int)), this, SLOT(setFlightStatus(QString, int)));
 
     QObject::connect(ui->menuBar, SIGNAL(triggered(QAction*)), this, SLOT(clickMenu(QAction*)));
 
@@ -45,9 +51,15 @@ MainWindow::MainWindow(QWidget *parent)
     setMinimumHeight(167);
     opac = &(opac_list[9]);
 
-    setupLists();
-    ListFlight = createList();
+    mode = 1; // drag&drop mode, 1 enables
+    ui->listPend->resetList("Clearance");
+    ui->listTaxi->resetList("Push&Taxi");
+    ui->listDepa->resetList("Departure");
+    ui->listPend->initStatus = 0;
+    ui->listTaxi->initStatus = 2;
+    ui->listDepa->initStatus = 4;
 
+    ListFlight = createList();
 }
 
 MainWindow::~MainWindow()
@@ -60,39 +72,13 @@ void MainWindow::resizeEvent(QResizeEvent *event){
     int h;
     h = height()-ui->menuBar->height()-ui->listDepa->y()-10;
     ui->listPend->setFixedHeight(h);
-    ui->listPush->setFixedHeight(h);
+    ui->listTaxi->setFixedHeight(h);
     ui->listDepa->setFixedHeight(h);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
     bool confirm = requestMessageBox(windowTitle(), "Confirm exit program?", 2);
     if (!confirm) event->ignore();
-}
-
-//custom methods
-void MainWindow::setupLists(){
-    QListWidgetItem *title_pend = new QListWidgetItem;
-    QListWidgetItem *title_push = new QListWidgetItem;
-    QListWidgetItem *title_dept = new QListWidgetItem;
-
-    title_pend->setBackground(brush_b_tit);
-    title_pend->setForeground(brush_f_tit);
-    title_pend->setText("Clearance");
-    title_pend->setFlags(Qt::NoItemFlags);
-
-    title_push->setBackground(brush_b_tit);
-    title_push->setForeground(brush_f_tit);
-    title_push->setText("Push&Start");
-    title_push->setFlags(Qt::NoItemFlags);
-
-    title_dept->setBackground(brush_b_tit);
-    title_dept->setForeground(brush_f_tit);
-    title_dept->setText("Departure");
-    title_dept->setFlags(Qt::NoItemFlags);
-
-    ui->listPend->addItem(title_pend);
-    ui->listPush->addItem(title_push);
-    ui->listDepa->addItem(title_dept);
 }
 
 //slots
@@ -139,6 +125,22 @@ void MainWindow::clickMenu(QAction *action){
         ui->actionSec->setChecked(0);
         ui->actionMinSec->setChecked(1);
     }
+    else if (action==ui->actionDrag_Drop){
+        mode = 1;
+        ui->actionDouble_click->setChecked(0);
+        ui->actionDrag_Drop->setChecked(1);
+        ui->listPend->setDragDropMode(QAbstractItemView::DragDrop);
+        ui->listTaxi->setDragDropMode(QAbstractItemView::DragDrop);
+        ui->listDepa->setDragDropMode(QAbstractItemView::DragDrop);
+    }
+    else if (action==ui->actionDouble_click){
+        mode = 0;
+        ui->actionDouble_click->setChecked(1);
+        ui->actionDrag_Drop->setChecked(0);
+        ui->listPend->setDragDropMode(QAbstractItemView::NoDragDrop);
+        ui->listTaxi->setDragDropMode(QAbstractItemView::NoDragDrop);
+        ui->listDepa->setDragDropMode(QAbstractItemView::NoDragDrop);
+    }
 }
 
 void MainWindow::addFlight(){
@@ -184,29 +186,79 @@ void MainWindow::resetLists(){
 
     destroyList(ListFlight);
     ListFlight = createList();
-    ui->listPend->clear();
-    ui->listPush->clear();
-    ui->listDepa->clear();
-    setupLists();
+
+    ui->listPend->resetList("Clearance");
+    ui->listTaxi->resetList("Push&Taxi");
+    ui->listDepa->resetList("Departure");
 }
 
-void MainWindow::setStatusClr(QListWidgetItem* item){
-    if (item->background()==brush_b_def){
-        item->setBackground(brush_b_clr);
-        item->setForeground(brush_f_clr);
-    }else if (item->background()==brush_b_clr){
-        item->setBackground(brush_b_def);
-        item->setForeground(brush_f_def);
+void MainWindow::doubleclickItem(QListWidgetItem *item){
+    if (mode){ //drag drop
+        FLIGHT *flt = findFlight(ListFlight,item->text());
+        switch (flt->status) {
+        case 0:
+            item->setBackground(brush_b_clr);
+            item->setForeground(brush_f_clr);
+            flt->status = 1;
+            break;
+        case 1:
+            item->setBackground(brush_b_def);
+            item->setForeground(brush_f_def);
+            flt->status = 0;
+            break;
+        case 2:
+            item->setBackground(brush_b_clr);
+            item->setForeground(brush_f_clr);
+            flt->status = 3;
+            break;
+        case 3:
+            item->setBackground(brush_b_def);
+            item->setForeground(brush_f_def);
+            flt->status = 2;
+            break;
+        case 4:
+            item->setBackground(brush_b_clr);
+            item->setForeground(brush_f_clr);
+            flt->status = 5;
+            break;
+        case 5:
+            delete item;
+            flt->status = 6;
+        default:
+            break;
+        }
+    }else{ //double click
+        int sts = nextStatus(ListFlight,item->text());
+        switch (sts) {
+        case 1:
+            item->setBackground(brush_b_clr);
+            item->setForeground(brush_f_clr);
+            break;
+        case 2:
+            ui->listTaxi->addItem(item->text());
+            delete item;
+            break;
+        case 3:
+            item->setBackground(brush_b_clr);
+            item->setForeground(brush_f_clr);
+            break;
+        case 4:
+            ui->listDepa->addItem(item->text());
+            delete item;
+            break;
+        case 5:
+            item->setBackground(brush_b_clr);
+            item->setForeground(brush_f_clr);
+            break;
+        case 6:
+            delete item;
+            break;
+        default:
+            break;
+        }
     }
 }
 
-void MainWindow::setStatusDep(QListWidgetItem* item){
-    if (item->background()==brush_b_def){
-        item->setBackground(brush_b_clr);
-        item->setForeground(brush_f_clr);
-    }else if (item->background()==brush_b_clr){
-        FLIGHT *tmp = findFlight(ListFlight,item->text());
-        tmp->status = 6; //departed
-        delete item;
-    }
+void MainWindow::setFlightStatus(QString callsign, int status){ //only used to receive signal
+    setStatus(ListFlight, callsign, status);
 }

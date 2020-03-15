@@ -12,7 +12,7 @@ If the client informs "lost connection with voice server", users have to complet
 
 1. Filtered key entries: only legal characters in a callsign can be typed into the box.
 2. Drag & Drop supported: Drag a strip from one list to another and drop.
-    Note: Don't drag & drop among different program instances, which may have some bugs.
+    If you don't like drag & drop, you can switch to Double click mode from menu bar. With this mode, your double click will only set the strip to the next stage, which means you can't go back to the previous stage except resetting the strip.
 3. Auto-calculated sequence: Hover your mouse on a strip or right click the strip, to check the current sequence for the flight.
 4. Distinguished color: Double click a strip in the list, its turn green (cleared), double click again, back to normal (standby).
     Note that in departure list, the second double click will delete the strip, meaning that the flight has departed.
@@ -35,7 +35,7 @@ No need to install, just double-click and run it.
 
 ## Credits
 
-+ Inspired by a member of VATPRC controllers. Howevery I forgot his name :(
++ Inspired by a member of VATPRC controllers. However I forgot his name :(
 + Application doesn't require any Internet connection and will not change any files in your computer.
 + The author of this software is a member of VATSIM VATPRC division with an S2 rating. If there's any suggestions to imporve the software please advise.
 + This is the first project after I learn the basics of C++, and I don't major in computer science or software engineering, so my code may looks fussy.

@@ -12,12 +12,15 @@ class CustomListWidget : public QListWidget{
 public:
     CustomListWidget(QWidget *parent = nullptr);
     ~CustomListWidget();
+    int initStatus;
+    void resetList(QString);
     void dropEvent(QDropEvent *event) override;
 
 signals:
     void resetItem(QListWidgetItem*);
     void deleteItem(QListWidgetItem*);
     void deleteAfterDrop(QString);
+    void changeStatus(QString, int);
 
 public slots:
     void showContext(QPoint);

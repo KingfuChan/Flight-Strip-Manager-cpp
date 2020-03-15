@@ -5,10 +5,16 @@
 #include <QBrush>
 #include <QString>
 
-
-extern QBrush brush_b_def,brush_b_clr,brush_b_tit;
-extern QBrush brush_f_def,brush_f_clr,brush_f_tit;
-
+/*
+Document about int status
+0   standby for clearance
+1   clearance received
+2   standby for push
+3   push, taxi
+4   standby for departure
+5   cleared for take-off
+6   handed off
+*/
 
 FLIGHT *createList(){
     FLIGHT *head = new FLIGHT;
@@ -42,29 +48,26 @@ FLIGHT *findFlight(FLIGHT *head, QString callsign){
     return p;
 }
 
-int nextStatus(FLIGHT *head, QString callsign){ //reserved
+void setStatus(FLIGHT *head, QString callsign, int status){
+    FLIGHT *loc = findFlight(head, callsign);
+    if (loc!=nullptr)
+        loc->status = status;
+}
+
+int nextStatus(FLIGHT *head, QString callsign){
     FLIGHT *loc = findFlight(head, callsign);
     if (loc==nullptr)
         return -1; //not found
-    else{
-        switch ((loc->status++)) {
-        case 1: //clearance received
-            break;
-        case 2: //standby for pushback
-            break;
-        case 3: //push&start approved, taxiing
-            break;
-        case 4: //standby for departure
-            break;
-        case 5: //cleared for take-off
-            break;
-        case 6: //departed
-            break;
-        default:
-            loc->status = 0; //standby for clearance
-        }
-        return loc->status;
-    }
+    else
+        return ++loc->status;
+}
+
+int prevStatus(FLIGHT *head, QString callsign){
+    FLIGHT *loc = findFlight(head, callsign);
+    if (loc==nullptr)
+        return -1; //not found
+    else
+        return --loc->status;
 }
 
 void removeFlight(FLIGHT *head, QString callsign){
@@ -84,37 +87,42 @@ void removeFlight(FLIGHT *head, QString callsign){
 
 QString generateReport(FLIGHT *head){
     FLIGHT *p = head->next;
-    int gnd, dep;
-    gnd = dep = 0;
+    int sts[7]={};
     for (;p!=nullptr;p=p->next){
         switch (p->status) { //may be specified in future
         case 0:
-            gnd++;
+            sts[0]++;
             break;
         case 1:
-            gnd++;
+            sts[1]++;
             break;
         case 2:
-            gnd++;
+            sts[2]++;
             break;
         case 3:
-            gnd++;
+            sts[3]++;
             break;
         case 4:
-            gnd++;
+            sts[4]++;
             break;
         case 5:
-            gnd++;
+            sts[5]++;
             break;
         case 6:
-            dep++;
+            sts[6]++;
             break;
         }
     }
 
-    QString line1, line2, line3;
-    line1 = QString("%1\tflights on ground.\n").arg(gnd);
-    line2 = QString("%1\tflights departed\n").arg(dep);
-    line3 = QString("%3\tflights in total.\n").arg(gnd+dep);
-    return line1+line2+line3;
+    QString lines[8];
+    lines[0] = QString("%1\tflights are waiting for clearance.\n").arg(sts[0]);
+    lines[1] = QString("%1\tflights have received clearance.\n").arg(sts[1]);
+    lines[2] = QString("%1\tflights are waiting for push back.\n").arg(sts[2]);
+    lines[3] = QString("%1\tflights are taxiing.\n").arg(sts[3]);
+    lines[4] = QString("%1\tflights are waiting for departure.\n").arg(sts[4]);
+    lines[5] = QString("%1\tflights are departing.\n").arg(sts[5]);
+    lines[6] = QString("%1\tflights have departed.\n").arg(sts[6]);
+    lines[7] = QString("%1\tflights in total.\n").arg(
+                sts[0]+sts[1]+sts[2]+sts[3]+sts[4]+sts[5]+sts[6]);
+    return lines[0]+lines[1]+lines[2]+lines[3]+lines[4]+lines[5]+lines[6]+lines[7];
 }

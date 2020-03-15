@@ -30,6 +30,11 @@ CustomListWidget::~CustomListWidget(){
 }
 
 void CustomListWidget::dropEvent(QDropEvent *event){
+    if (event->source()==nullptr){ //reject drop from outside app
+        event->ignore();
+        return;
+    }
+
     int row = currentRow(), i, bc, ac;
 
     //scan list before event
@@ -65,6 +70,7 @@ void CustomListWidget::dropEvent(QDropEvent *event){
         temp->setForeground(brush_f_def);
         addItem(temp);
         emit deleteAfterDrop(temp->text()); //debugged, ctrl or alt won't trigger copy action
+        emit changeStatus(temp->text(), initStatus); //send a sign to mainwindow to change the log
     }
 
     clearSelection();
@@ -77,6 +83,16 @@ void CustomListWidget::enterEvent(QEvent *event){
     QListWidget::enterEvent(event);
     clearSelection();
     calcSequence();
+}
+
+void CustomListWidget::resetList(QString title){
+    clear();
+    QListWidgetItem *titleItem = new QListWidgetItem;
+    titleItem->setBackground(brush_b_tit);
+    titleItem->setForeground(brush_f_tit);
+    titleItem->setText(title);
+    titleItem->setFlags(Qt::NoItemFlags);
+    addItem(titleItem);
 }
 
 void CustomListWidget::showContext(QPoint pos){
@@ -132,4 +148,5 @@ void CustomListWidget::deletebyText(QString text){
     if (i==count()) return;
     QListWidgetItem *del = takeItem(i);
     delete del;
+    clearSelection();
 }

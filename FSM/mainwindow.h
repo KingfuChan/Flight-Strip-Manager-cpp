@@ -24,14 +24,14 @@ public slots:
     void addFlight(QListWidgetItem*);
     void deleteFlight(QListWidgetItem*);
     void resetLists();
-    void setStatusClr(QListWidgetItem*);
-    void setStatusDep(QListWidgetItem*);
+    void doubleclickItem(QListWidgetItem*);
+    void setFlightStatus(QString, int);
 
 private:
     Ui::MainWindow *ui;
     FLIGHT *ListFlight;
     const int opac_list[10]={1,2,3,4,5,6,7,8,9,10}, *opac;
-    void setupLists();
+    int mode;
 
 protected:
     void resizeEvent(QResizeEvent*);

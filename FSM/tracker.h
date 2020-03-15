@@ -18,7 +18,11 @@ void addNew(FLIGHT *head, QString callsign);
 
 FLIGHT *findFlight(FLIGHT *head, QString callsign);
 
-int nextStatus(FLIGHT *head, QString callsign); //reserved
+void setStatus(FLIGHT *head, QString callsign, int status);
+
+int nextStatus(FLIGHT *head, QString callsign);
+
+int prevStatus(FLIGHT *head, QString callsign);
 
 void removeFlight(FLIGHT *head, QString callsign);
 

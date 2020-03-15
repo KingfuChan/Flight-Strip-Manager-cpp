@@ -83,14 +83,11 @@
     <property name="toolTipDuration">
      <number>1</number>
     </property>
-    <property name="dragEnabled">
-     <bool>true</bool>
-    </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
     </property>
    </widget>
-   <widget class="CustomListWidget" name="listPush">
+   <widget class="CustomListWidget" name="listTaxi">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -110,9 +107,6 @@
     </property>
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
-    </property>
-    <property name="dragEnabled">
-     <bool>true</bool>
     </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
@@ -138,9 +132,6 @@
     </property>
     <property name="contextMenuPolicy">
      <enum>Qt::CustomContextMenu</enum>
-    </property>
-    <property name="dragEnabled">
-     <bool>true</bool>
     </property>
     <property name="dragDropMode">
      <enum>QAbstractItemView::DragDrop</enum>
@@ -223,8 +214,17 @@
      <addaction name="actionSec"/>
      <addaction name="actionMinSec"/>
     </widget>
+    <widget class="QMenu" name="menuMode">
+     <property name="title">
+      <string>Mode</string>
+     </property>
+     <addaction name="actionDrag_Drop"/>
+     <addaction name="actionDouble_click"/>
+    </widget>
     <addaction name="menuSet_opacity"/>
     <addaction name="actionStay_on_top"/>
+    <addaction name="separator"/>
+    <addaction name="menuMode"/>
     <addaction name="menuTimer_format"/>
     <addaction name="separator"/>
     <addaction name="actionStatistics"/>
@@ -302,9 +302,6 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>Seconds</string>
    </property>
@@ -315,6 +312,22 @@
    </property>
    <property name="text">
     <string>Min:Sec</string>
+   </property>
+  </action>
+  <action name="actionDrag_Drop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Drag and drop</string>
+   </property>
+  </action>
+  <action name="actionDouble_click">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Double click</string>
    </property>
   </action>
  </widget>
@@ -339,7 +352,7 @@
   <tabstop>lineEdit</tabstop>
   <tabstop>buttonAdd</tabstop>
   <tabstop>listPend</tabstop>
-  <tabstop>listPush</tabstop>
+  <tabstop>listTaxi</tabstop>
   <tabstop>listDepa</tabstop>
   <tabstop>buttonReset</tabstop>
  </tabstops>
