@@ -6,7 +6,7 @@
 #include <QString>
 
 /*
-Document about int status
+Documentation about int status
 0   standby for clearance
 1   clearance received
 2   standby for push
@@ -50,7 +50,7 @@ FLIGHT *findFlight(FLIGHT *head, QString callsign){
 
 void setStatus(FLIGHT *head, QString callsign, int status){
     FLIGHT *loc = findFlight(head, callsign);
-    if (loc!=nullptr)
+    if (loc!=nullptr && status>=0 && status<=6)
         loc->status = status;
 }
 
@@ -88,41 +88,26 @@ void removeFlight(FLIGHT *head, QString callsign){
 QString generateReport(FLIGHT *head){
     FLIGHT *p = head->next;
     int sts[7]={};
-    for (;p!=nullptr;p=p->next){
-        switch (p->status) { //may be specified in future
-        case 0:
-            sts[0]++;
-            break;
-        case 1:
-            sts[1]++;
-            break;
-        case 2:
-            sts[2]++;
-            break;
-        case 3:
-            sts[3]++;
-            break;
-        case 4:
-            sts[4]++;
-            break;
-        case 5:
-            sts[5]++;
-            break;
-        case 6:
-            sts[6]++;
-            break;
-        }
-    }
+    for (;p!=nullptr;p=p->next)
+        sts[p->status]++;
 
-    QString lines[8];
-    lines[0] = QString("%1\tflights are waiting for clearance.\n").arg(sts[0]);
-    lines[1] = QString("%1\tflights have received clearance.\n").arg(sts[1]);
-    lines[2] = QString("%1\tflights are waiting for push back.\n").arg(sts[2]);
-    lines[3] = QString("%1\tflights are taxiing.\n").arg(sts[3]);
-    lines[4] = QString("%1\tflights are waiting for departure.\n").arg(sts[4]);
-    lines[5] = QString("%1\tflights are departing.\n").arg(sts[5]);
-    lines[6] = QString("%1\tflights have departed.\n").arg(sts[6]);
-    lines[7] = QString("%1\tflights in total.\n").arg(
-                sts[0]+sts[1]+sts[2]+sts[3]+sts[4]+sts[5]+sts[6]);
-    return lines[0]+lines[1]+lines[2]+lines[3]+lines[4]+lines[5]+lines[6]+lines[7];
+    int i, gnd, tot;
+    for (i=gnd=tot=0;i<5;i++){
+        gnd += sts[i];
+        tot += sts[i];
+    } //status 5 are not on the ground
+    tot += sts[5]+sts[6];
+
+    QString lines;
+    lines = QString("  %1\tflights are waiting for clearance.\n").arg(sts[0]);
+    lines += QString("  %1\tflights have received clearance.\n").arg(sts[1]);
+    lines += QString("  %1\tflights are waiting for push back.\n").arg(sts[2]);
+    lines += QString("  %1\tflights are taxiing.\n").arg(sts[3]);
+    lines += QString("  %1\tflights are waiting for departure.\n").arg(sts[4]);
+    lines += QString("  %1\tflights are departing.\n").arg(sts[5]);
+    lines += QString().fill('-',54) + '\n';
+    lines += QString("  %1\tflights are on the ground.\n").arg(gnd);
+    lines += QString("  %1\tflights have departed.\n").arg(sts[6]);
+    lines += QString("  %1\tflights in total.\n").arg(tot);
+    return lines;
 }

@@ -4,6 +4,6 @@
 #include <QWidget>
 #include <QString>
 
-bool requestMessageBox(QString title, QString text, int mode);
+bool requestMessageBox(QWidget *parent, QString text, int mode);
 
 #endif // MSGBOX_H

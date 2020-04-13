@@ -77,7 +77,7 @@ void MainWindow::resizeEvent(QResizeEvent *event){
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
-    bool confirm = requestMessageBox(windowTitle(), "Confirm exit program?", 2);
+    bool confirm = requestMessageBox(this, "Confirm exit program?", 2);
     if (!confirm) event->ignore();
 }
 
@@ -110,10 +110,10 @@ void MainWindow::clickMenu(QAction *action){
     else if (action==ui->actionReset)
         resetLists();
     else if (action==ui->actionAbout){
-        requestMessageBox(windowTitle(), about_lines, 1);
+        requestMessageBox(this, about_lines, 1);
     }
     else if (action==ui->actionStatistics){
-        requestMessageBox(windowTitle(), generateReport(ListFlight), 1);
+        requestMessageBox(this, generateReport(ListFlight), 1);
     }
     else if (action==ui->actionSec){
         ui->lcdNumber->setDisplayMode(0);
@@ -151,7 +151,7 @@ void MainWindow::addFlight(){
     FLIGHT *rec = findFlight(ListFlight,callsign);
     if (rec!=nullptr){
         if (rec->status==6){ //callsign in use but departed
-            bool confirm = requestMessageBox(windowTitle(),
+            bool confirm = requestMessageBox(this,
                                              QString("Callsign %1 already exists but has departed.\n"
                                                      "Confirm still add to list?").arg(callsign), 2);
             if (!confirm) return;
@@ -181,7 +181,7 @@ void MainWindow::deleteFlight(QListWidgetItem *item){
 }
 
 void MainWindow::resetLists(){
-    bool confirm = requestMessageBox(windowTitle(), "Confirm reset all lists?", 2);
+    bool confirm = requestMessageBox(this, "Confirm reset all lists?", 2);
     if (!confirm) return;
 
     destroyList(ListFlight);

@@ -93,6 +93,7 @@ void LCDTimer::mouseReleaseEvent(QMouseEvent *event){
         second = timeList[i];
         displayTime(second);
     }else if (event->button()==Qt::LeftButton){
+        QApplication::beep();
         if (!status){
             status = 1;
             timer->setInterval(1000);
